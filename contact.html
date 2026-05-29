@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Consultation - Faiq AI Agency | Let's Build Your Digital Dominance</title>
+    <meta name="description" content="Get in touch with Faiq AI Agency. Secure a strategy call, request a custom website audit, or send a message using our glassmorphism contact form.">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CSS Page Specific Adjustments -->
+    <style>
+        .contact-hero {
+            padding-top: 150px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-hero p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Split Layout */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: flex-start;
+            padding-bottom: 120px;
+            position: relative;
+        }
+
+        /* Focus Helper Dot */
+        .focus-dot-helper {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-cyan);
+            box-shadow: 0 0 15px var(--color-cyan), 0 0 30px var(--color-cyan-glow);
+            pointer-events: none;
+            opacity: 0;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 100;
+        }
+
+        .focus-dot-helper.valid {
+            background: #10B981;
+            box-shadow: 0 0 15px #10B981, 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .focus-dot-helper.invalid {
+            background: #EF4444;
+            box-shadow: 0 0 15px #EF4444, 0 0 30px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Info Card */
+        .info-panel {
+            padding: 40px;
+        }
+
+        .info-panel h2 {
+            font-family: var(--font-subheading);
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: #FFF;
+        }
+
+        .info-panel p {
+            color: var(--color-text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .booking-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .booking-time {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+        .booking-icon {
+            font-size: 1.4rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contact Form */
+        .contact-form-panel {
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-subheading);
+            color: #FFF;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(7, 10, 19, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 14px 18px;
+            color: #FFF;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+            background: rgba(7, 10, 19, 0.8);
+        }
+
+        select.form-control option {
+            background: var(--color-bg-space);
+            color: #FFF;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* Success Message Overlay */
+        .form-success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-card-dark);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 10;
+        }
+
+        .form-success-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #10B981;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .success-title {
+            font-family: var(--font-subheading);
+            font-size: 1.8rem;
+            color: #FFF;
+            margin-bottom: 12px;
+        }
+
+        .success-text {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            max-width: 320px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas Backdrop -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Transition Overlay -->
+    <div class="transition-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav" id="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo" id="logo-home">
+                <span>FAIQ</span> AI
+            </a>
+            <div class="nav-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navigation-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li>
+                    <button class="theme-toggle-btn" id="theme-toggle-nav" aria-label="Toggle light/dark theme">
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
+                    </button>
+                </li>
+                <li><a href="contact.html" class="cta-nav">Let's Connect</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Visual Focus Dot Helper -->
+    <div class="focus-dot-helper" id="focus-helper"></div>
+
+    <main>
+        <!-- Contact Hero -->
+        <section class="contact-hero">
+            <div class="ambient-glow" style="top: 5%; left: 5%;"></div>
+            <div class="container">
+                <h1 class="title-tech">INITIATE <span class="gradient-text">CONNECTION</span></h1>
+                <p>Ready to deploy AI capabilities or redesign your digital layout? Connect with our strategic leads or book a slot below.</p>
+            </div>
+        </section>
+
+        <!-- Contact Section Form & Info -->
+        <section style="padding-top: 20px;">
+            <div class="container">
+                <div class="contact-layout">
+                    
+                    <!-- Left Info Panel -->
+                    <div class="glass-card info-panel float-slow" id="contact-info" style="--float-delay: 0s;">
+                        <div class="card-glare"></div>
+                        <h2>Consultation Booking</h2>
+                        <p>We work exclusively with business owners and marketing directors looking to establish clear digital dominance. Choose a pathway that fits your project velocity.</p>
+                        
+                        <div class="booking-card">
+                            <div class="booking-time">
+                                <span class="booking-icon">⚡</span>
+                                <div>
+                                    <strong style="color: #FFF; display: block;">15-Min Strategy Discovery</strong>
+                                    <span>Quick scoping call to assess technology match.</span>
+                                </div>
+                            </div>
+                            <div class="booking-time">
+                                <span class="booking-icon">📍</span>
+                                <div>
+                                    <strong style="color: #FFF; display: block;">Free Web & SEO Audit</strong>
+                                    <span>Detailed report identifying core page speed & map issues.</span>
+                                </div>
+                            </div>
+                            <div class="booking-time">
+                                <span class="booking-icon">✉</span>
+                                <div>
+                                    <strong style="color: #FFF; display: block;">Direct Channel</strong>
+                                    <span><a href="mailto:faiqfiaz@gmail.com" style="color: var(--color-cyan); text-decoration: none;">faiqfiaz@gmail.com</a></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://calendly.com" target="_blank" class="btn btn-primary" style="margin-top: 35px; width: 100%;" id="calendly-button">Schedule via Calendly</a>
+                    </div>
+
+                    <!-- Right Form Panel -->
+                    <div class="glass-card contact-form-panel float-medium" id="contact-form-card" style="--float-delay: -2s;">
+                        <div class="card-glare"></div>
+                        
+                        <!-- Success Message -->
+                        <div class="form-success-overlay" id="success-screen">
+                            <div class="success-icon">✓</div>
+                            <h3 class="success-title">Connection Established</h3>
+                            <p class="success-text">Your message has bypassed atmospheric interference. A strategic lead will contact you within 12 hours.</p>
+                            <button class="btn btn-secondary" style="margin-top: 25px; padding: 10px 24px;" id="reset-form-btn">Send New Message</button>
+                        </div>
+
+                        <!-- Form -->
+                        <form id="agency-contact-form" novalidate>
+                            <div class="form-group">
+                                <label for="client-name">Your Name</label>
+                                <input type="text" id="client-name" class="form-control" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-email">Email Address</label>
+                                <input type="email" id="client-email" class="form-control" placeholder="john@company.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="project-type">Requested Capability</label>
+                                <select id="project-type" class="form-control" required>
+                                    <option value="" disabled selected>Select capability...</option>
+                                    <option value="web-dev">Website Design & Development</option>
+                                    <option value="seo">Search Engine Optimization</option>
+                                    <option value="graphics">Graphic Design & Branding</option>
+                                    <option value="gmb">GMB Optimization</option>
+                                    <option value="social-media">Social Media Marketing</option>
+                                    <option value="video">Cinematic Video Editing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="project-details">Project Description</label>
+                                <textarea id="project-details" class="form-control" placeholder="Tell us about your conversion goals..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary submit-btn" id="submit-form-btn">Transmit Signal</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo" id="footer-logo-link">
+                <span>FAIQ</span> AI
+            </a>
+            <ul class="footer-links" id="footer-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <p style="max-width: 500px; font-size: 0.9rem; margin-top: 10px;">Faiq AI Agency © 2026. Custom design engineered for maximum digital conversion. All rights reserved.</p>
+        </div>
+        <div class="footer-bottom">
+            Designed and Developed by Faiq AI Agency.
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Widget -->
+    <div class="chatbot-container" id="chatbot">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open AI chatbot">
+            <span>💬</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chat-header">
+                <div class="chat-header-title">
+                    <div class="chat-status-dot"></div>
+                    <span>Faiq AI Core Assistant</span>
+                </div>
+                <button class="chat-close-btn" id="chat-close" aria-label="Close chatbot">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot">
+                    Hello! I am Faiq AI Core. How can I propel your brand's digital authority today?
+                </div>
+            </div>
+            <div class="chat-chips">
+                <button class="chat-chip" id="chip-services">Capabilities</button>
+                <button class="chat-chip" id="chip-audit">Free Audit</button>
+                <button class="chat-chip" id="chip-call">Book Call</button>
+            </div>
+            <form class="chat-input-area" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message..." aria-label="Type message to AI Core">
+                <button type="submit" class="chat-send-btn" id="chat-send" aria-label="Send message">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Inline Script for Focus Helper and Form Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initMagneticFocusDot();
+            initContactForm();
+            preselectService();
+        });
+
+        /* Preselect service from URL parameter (e.g. ?service=web-dev) */
+        function preselectService() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+            if (service) {
+                const selectEl = document.getElementById('project-type');
+                if (selectEl) {
+                    selectEl.value = service;
+                    // Trigger custom check for the select input
+                    setTimeout(() => {
+                        const event = new Event('change');
+                        selectEl.dispatchEvent(event);
+                    }, 100);
+                }
+            }
+        }
+
+        /* Magnetic Focus Dot System */
+        function initMagneticFocusDot() {
+            const helper = document.getElementById('focus-helper');
+            const inputs = document.querySelectorAll('.form-control');
+
+            inputs.forEach(input => {
+                // When input receives focus, move dot to it
+                input.addEventListener('focus', () => {
+                    alignHelper(input);
+                    helper.style.opacity = '1';
+                });
+
+                // When input is modified, evaluate validation to change dot color
+                input.addEventListener('input', () => {
+                    validateHelperColor(input);
+                });
+
+                input.addEventListener('change', () => {
+                    validateHelperColor(input);
+                });
+
+                // Hide helper when user leaves inputs
+                input.addEventListener('blur', () => {
+                    helper.style.opacity = '0';
+                    helper.className = 'focus-dot-helper'; // Reset validation status classes
+                });
+            });
+
+            function alignHelper(input) {
+                const inputRect = input.getBoundingClientRect();
+                const containerRect = document.body.getBoundingClientRect();
+
+                // Compute exact center position offset left of input field
+                const leftPos = inputRect.left - containerRect.left - 24; // 24px to the left
+                const topPos = inputRect.top - containerRect.top + (inputRect.height / 2) - 7; // centered vertically
+
+                helper.style.transform = `translate3d(${leftPos}px, ${topPos}px, 0)`;
+                validateHelperColor(input);
+            }
+
+            function validateHelperColor(input) {
+                // Quick validation status check
+                if (input.value.trim() === '') {
+                    helper.className = 'focus-dot-helper';
+                } else if (input.checkValidity()) {
+                    helper.className = 'focus-dot-helper valid';
+                } else {
+                    helper.className = 'focus-dot-helper invalid';
+                }
+            }
+        }
+
+        /* Form Submissions & Success Toggle */
+        function initContactForm() {
+            const form = document.getElementById('agency-contact-form');
+            const successOverlay = document.getElementById('success-screen');
+            const resetBtn = document.getElementById('reset-form-btn');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Standard HTML5 validation check
+                let formIsValid = true;
+                const inputs = form.querySelectorAll('.form-control');
+
+                inputs.forEach(input => {
+                    if (!input.checkValidity()) {
+                        formIsValid = false;
+                        input.style.borderColor = '#EF4444'; // Red highlight on error
+                    } else {
+                        input.style.borderColor = 'var(--glass-border)';
+                    }
+                });
+
+                if (formIsValid) {
+                    // Activate success screen transition
+                    successOverlay.classList.add('active');
+                    form.reset();
+                }
+            });
+
+            // Reset success screen
+            resetBtn.addEventListener('click', () => {
+                successOverlay.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>

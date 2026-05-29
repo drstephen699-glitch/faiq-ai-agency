@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faiq AI Agency - Propelling Brands Into the Future of Digital Authority</title>
+    <meta name="description" content="Faiq AI Agency delivers premium Web Design, SEO, Graphic Design, and Social Media Marketing using custom interactive AI frameworks. Explore our futuristic digital solutions.">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CSS Page Specific Adjustments -->
+    <style>
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            position: relative;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 40px;
+            max-width: 550px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--color-cyan-glow);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            margin-top: -60px;
+            padding-bottom: 80px;
+            z-index: 5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            border-top: 2px solid var(--color-cyan);
+        }
+
+        .stat-card:nth-child(2) {
+            border-top-color: var(--color-violet);
+        }
+
+        .stat-card:nth-child(3) {
+            border-top-color: var(--color-cyan);
+        }
+
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: var(--font-subheading);
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Bento Grid Specifics */
+        .bento-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+
+        .bento-card h3 {
+            font-family: var(--font-subheading);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #FFF;
+        }
+
+        .bento-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .bento-card .bento-icon {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bento-card .bento-link {
+            margin-top: auto;
+            align-self: flex-start;
+            color: var(--color-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .bento-card:hover .bento-link {
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+
+            .hero-content p {
+                margin: 0 auto 40px auto;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas Backdrop -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Transition Overlay -->
+    <div class="transition-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav" id="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo" id="logo-home">
+                <span>FAIQ</span> AI
+            </a>
+            <div class="nav-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navigation-list">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                    <button class="theme-toggle-btn" id="theme-toggle-nav" aria-label="Toggle light/dark theme">
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
+                    </button>
+                </li>
+                <li><a href="contact.html" class="cta-nav">Let's Connect</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home-hero">
+            <div class="ambient-glow" style="top: 10%; left: 5%;"></div>
+            <div class="ambient-glow" style="top: 40%; right: 5%; background: radial-gradient(circle, rgba(79, 172, 254, 0.04) 0%, transparent 100%);"></div>
+            
+            <div class="container">
+                <div class="hero-layout">
+                    <div class="hero-content">
+                        <h1 class="title-tech">Propelling Brands Into the <span class="gradient-text">Future of Digital Authority</span>.</h1>
+                        <p>We craft immersive digital ecosystems, build bespoke AI integrations, and design high-conversion products that position your brand at the absolute bleeding edge of technology.</p>
+                        <div class="hero-ctas">
+                            <a href="contact.html" class="btn btn-primary" id="hero-cta-book">Book a Strategy Call</a>
+                            <a href="services.html" class="btn btn-secondary" id="hero-cta-explore">Our Expertise</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual" style="height: 450px; overflow: visible;">
+                        <div class="float-slow tilt-target" id="hero-3d-container" style="width: 100%; height: 100%; position: relative; z-index: 5;">
+                            <!-- Three.js Canvas mounts here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Scroll Indicator -->
+            <a href="#home-stats" class="scroll-indicator" id="hero-scroll-btn" aria-label="Scroll down to statistics">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span>SCROLL</span>
+            </a>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-bar" id="home-stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="glass-card stat-card float-slow" style="--float-delay: 0s;">
+                        <div class="card-glare"></div>
+                        <div class="stat-num gradient-text">10x</div>
+                        <div class="stat-label">Average Client ROI Boost</div>
+                    </div>
+                    <div class="glass-card stat-card float-medium" style="--float-delay: -2s;">
+                        <div class="card-glare"></div>
+                        <div class="stat-num gradient-text">100+</div>
+                        <div class="stat-label">Futuristic Projects Launched</div>
+                    </div>
+                    <div class="glass-card stat-card float-fast" style="--float-delay: -4s;">
+                        <div class="card-glare"></div>
+                        <div class="stat-num gradient-text">99%</div>
+                        <div class="stat-label">Client Retention & Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Overview (Bento Grid) -->
+        <section id="services-overview">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 class="title-tech" style="font-size: 2.5rem; margin-bottom: 20px;">ENGINEERED CAPABILITIES</h2>
+                    <p style="color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">Our services are optimized to drive authority, visibility, and conversion through automated systems and bespoke interfaces.</p>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Web Dev (Wide) -->
+                    <div class="bento-item wide">
+                        <div class="glass-card bento-card">
+                            <div class="card-glare"></div>
+                            <div>
+                                <div class="bento-icon">⚡</div>
+                                <h3>Website Design & Development</h3>
+                                <p>Immersive, light-speed, and responsive custom websites designed to engage visitors instantly. We bypass bulky legacy templates in favor of modern architectures optimized for Core Web Vitals.</p>
+                            </div>
+                            <a href="services.html#web-dev" class="bento-link">Explore Service &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- SEO -->
+                    <div class="bento-item">
+                        <div class="glass-card bento-card">
+                            <div class="card-glare"></div>
+                            <div>
+                                <div class="bento-icon">📈</div>
+                                <h3>Search Engine Optimization</h3>
+                                <p>Data-driven strategy designed to scale search real estate. We specialize in local maps and national growth metrics.</p>
+                            </div>
+                            <a href="services.html#seo" class="bento-link">Explore Service &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Graphic Design -->
+                    <div class="bento-item">
+                        <div class="glass-card bento-card">
+                            <div class="card-glare"></div>
+                            <div>
+                                <div class="bento-icon">🎨</div>
+                                <h3>Graphic Design</h3>
+                                <p>Premium visual storytelling and brand packaging engineered to disrupt screens and establish visual authority.</p>
+                            </div>
+                            <a href="services.html#graphics" class="bento-link">Explore Service &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Video Editing (Wide) -->
+                    <div class="bento-item wide">
+                        <div class="glass-card bento-card">
+                            <div class="card-glare"></div>
+                            <div>
+                                <div class="bento-icon">🎬</div>
+                                <h3>Cinematic Video Editing</h3>
+                                <p>High-retention video design built for YouTube, social shorts, and promotional campaigns. We edit frame-by-frame with high-impact VFX, crisp sound engineering, and color grading for optimal user retention.</p>
+                            </div>
+                            <a href="services.html#video-editing" class="bento-link">Explore Service &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Testimonials & Case Studies -->
+        <section id="testimonials" style="padding-top: 40px; padding-bottom: 80px;">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 class="title-tech" style="font-size: 2.5rem; margin-bottom: 20px;">VERIFIED CLIENT RETENTION</h2>
+                    <p style="color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">Genuine growth outcomes from corporate partners and brands who transitioned into digital authority.</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;" id="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="glass-card float-slow" style="--float-delay: 0s; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div style="color: var(--color-cyan); font-size: 1.5rem; margin-bottom: 15px;">★★★★★</div>
+                            <p style="color: var(--color-text-secondary); font-size: 0.95rem; font-style: italic; line-height: 1.7; margin-bottom: 20px;">
+                                "Faiq AI Agency overhauled our entire SaaS front-end design. Our Core Web Vitals score shot up to 98/100, page load latency decreased by 60%, and our conversion rate increased by 240% in just 30 days."
+                            </p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); color: #070A13; font-weight: bold; font-size: 0.9rem;">SJ</div>
+                            <div>
+                                <h4 class="title-sub" style="font-size: 0.95rem; color: var(--color-text-primary); margin: 0;">Sarah Jenkins</h4>
+                                <span style="font-size: 0.8rem; color: var(--color-text-secondary);">COO, DevFlow Systems</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="glass-card float-medium" style="--float-delay: -2s; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div style="color: var(--color-violet); font-size: 1.5rem; margin-bottom: 15px;">★★★★★</div>
+                            <p style="color: var(--color-text-secondary); font-size: 0.95rem; font-style: italic; line-height: 1.7; margin-bottom: 20px;">
+                                "The cinematic editing layouts and VFX pacing their video team implemented increased our watch-through retention rate by 45%. Total subscriber conversions doubled within 6 weeks of deployment."
+                            </p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); color: #070A13; font-weight: bold; font-size: 0.9rem;">MV</div>
+                            <div>
+                                <h4 class="title-sub" style="font-size: 0.95rem; color: var(--color-text-primary); margin: 0;">Marcus Vance</h4>
+                                <span style="font-size: 0.8rem; color: var(--color-text-secondary);">Founder, Chrono Media</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="glass-card float-fast" style="--float-delay: -4s; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div style="color: var(--color-cyan); font-size: 1.5rem; margin-bottom: 15px;">★★★★★</div>
+                            <p style="color: var(--color-text-secondary); font-size: 0.95rem; font-style: italic; line-height: 1.7; margin-bottom: 20px;">
+                                "Their maps geofencing and review indexing systems pushed us into the Google Local Map 3-Pack for HVAC search keywords within 8 weeks, driving a 180% increase in regional inbound phone calls."
+                            </p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); color: #070A13; font-weight: bold; font-size: 0.9rem;">AT</div>
+                            <div>
+                                <h4 class="title-sub" style="font-size: 0.95rem; color: var(--color-text-primary); margin: 0;">Aris Thorne</h4>
+                                <span style="font-size: 0.8rem; color: var(--color-text-secondary);">Director, Solaris Power</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process/Value Prop (Geometric Break Section) -->
+        <section class="section-light" id="value-prop">
+            <div class="divider-angle-top"></div>
+            <div class="container" style="padding: 40px 0;">
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center;">
+                    <div>
+                        <h2 class="title-tech" style="font-size: 2.8rem; margin-bottom: 24px; color: var(--color-text-dark);">WE MERGE CREATIVE GENIUS WITH ARTIFICIAL INTELLIGENCE</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">At Faiq AI Agency, we don't build generic designs. We audit search metrics, automate conversion loops, and utilize deep rendering stacks to ensure your brand's digital presence commands respect. Our work sits at the intersection of aesthetic luxury and technical dominance.</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                                <div style="width: 24px; height: 24px; background: var(--gradient-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #FFF; font-weight: bold; flex-shrink: 0; margin-top: 3px;">✔</div>
+                                <div>
+                                    <h4 class="title-sub" style="font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 4px;">Proprietary AI Acceleration</h4>
+                                    <p style="font-size: 0.95rem;">We accelerate build and design times by leveraging AI frameworks, passing efficiency directly to our clients.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                                <div style="width: 24px; height: 24px; background: var(--gradient-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #FFF; font-weight: bold; flex-shrink: 0; margin-top: 3px;">✔</div>
+                                <div>
+                                    <h4 class="title-sub" style="font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 4px;">Data-Backed Conversion Loops</h4>
+                                    <p style="font-size: 0.95rem;">Every pixel serves a marketing goal. We pair stunning visuals with strict conversion rate optimization principles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="position: relative;">
+                        <!-- Custom layout: Overlapping floating glassmorphic info blocks -->
+                        <div class="glass-card float-slow" style="border-color: rgba(7, 10, 19, 0.1); background: rgba(7, 10, 19, 0.05); color: var(--color-text-dark); padding: 40px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); --float-delay: 0s;">
+                            <h3 class="title-sub" style="font-size: 1.5rem; margin-bottom: 15px; color: var(--color-text-dark);">Let's Scale Together</h3>
+                            <p style="margin-bottom: 24px; font-size: 0.95rem;">Ready to transition your business into the era of digital authority? Work with Faiq AI Agency and command the top positions on search grids and social networks.</p>
+                            <a href="contact.html" class="btn btn-primary" style="width: 100%;" id="value-prop-cta">Request Free Website Audit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divider-angle-bottom"></div>
+        </section>
+
+        <!-- Buffer section to allow spacing below divider -->
+        <div style="height: 100px; background: var(--color-bg-dark);"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo" id="footer-logo-link">
+                <span>FAIQ</span> AI
+            </a>
+            <ul class="footer-links" id="footer-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <p style="max-width: 500px; font-size: 0.9rem; margin-top: 10px;">Faiq AI Agency © 2026. Custom design engineered for maximum digital conversion. All rights reserved.</p>
+        </div>
+        <div class="footer-bottom">
+            Designed and Developed by Faiq AI Agency.
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Widget -->
+    <div class="chatbot-container" id="chatbot">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open AI chatbot">
+            <span>💬</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chat-header">
+                <div class="chat-header-title">
+                    <div class="chat-status-dot"></div>
+                    <span>Faiq AI Core Assistant</span>
+                </div>
+                <button class="chat-close-btn" id="chat-close" aria-label="Close chatbot">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot">
+                    Hello! I am Faiq AI Core. How can I propel your brand's digital authority today?
+                </div>
+            </div>
+            <div class="chat-chips">
+                <button class="chat-chip" id="chip-services">Capabilities</button>
+                <button class="chat-chip" id="chip-audit">Free Audit</button>
+                <button class="chat-chip" id="chip-call">Book Call</button>
+            </div>
+            <form class="chat-input-area" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message..." aria-label="Type message to AI Core">
+                <button type="submit" class="chat-send-btn" id="chat-send" aria-label="Send message">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,995 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --color-bg-dark: #070A13;
+    --color-bg-space: #0B0F19;
+    --color-bg-light: #FFFFFF;
+    --color-card-dark: rgba(15, 23, 42, 0.65);
+    
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #94A3B8;
+    --color-text-dark: #0F172A;
+    --color-text-muted: #64748B;
+    
+    /* Neon Accents */
+    --color-cyan: #00F2FE;
+    --color-violet: #4FACFE;
+    --color-cyan-glow: rgba(0, 242, 254, 0.3);
+    --color-violet-glow: rgba(79, 172, 254, 0.3);
+    --gradient-accent: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-violet) 100%);
+    
+    /* Layout & Glassmorphism */
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: rgba(0, 0, 0, 0.4);
+    
+    /* Fonts */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-subheading: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ==========================================================================
+   BASE RESET & UTILITIES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    background-image: 
+        linear-gradient(rgba(0, 242, 254, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: center;
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-cyan), var(--color-violet));
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-cyan);
+}
+
+/* Section Transitions & Anchors */
+section {
+    position: relative;
+    padding: 100px 5% 100px 5%;
+    width: 100%;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+.title-tech {
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #FFF, var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title-sub {
+    font-family: var(--font-subheading);
+    font-weight: 600;
+}
+
+.gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+.header-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    background: rgba(7, 10, 19, 0.7);
+}
+
+.header-nav.scrolled {
+    padding: 10px 0;
+    background: rgba(7, 10, 19, 0.95);
+    border-bottom-color: rgba(0, 242, 254, 0.2);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 5%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #FFF;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-family: var(--font-subheading);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-cyan);
+    text-shadow: 0 0 10px var(--color-cyan-glow);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.cta-nav {
+    padding: 10px 22px;
+    border-radius: 30px;
+    background: transparent;
+    border: 1px solid var(--color-cyan);
+    color: #FFF;
+    font-family: var(--font-subheading);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
+}
+
+.cta-nav:hover {
+    background: var(--gradient-accent);
+    border-color: transparent;
+    box-shadow: 0 0 20px var(--color-cyan-glow);
+    transform: translateY(-2px);
+}
+
+/* Mobile Navigation Toggle */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1010;
+}
+
+.nav-toggle span {
+    width: 28px;
+    height: 3px;
+    background: #FFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM & FLOATING SYSTEM
+   ========================================================================== */
+.glass-card {
+    background: var(--color-card-dark);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px var(--glass-shadow);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card:hover {
+    border-color: rgba(0, 242, 254, 0.35);
+    box-shadow: 0 15px 40px rgba(0, 242, 254, 0.1);
+}
+
+/* Card Glare Effect */
+.card-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glass-card:hover .card-glare {
+    opacity: 1;
+}
+
+/* Anti-Gravity Y-Axis Floating Animations (Varying intervals to look natural) */
+.float-slow {
+    animation: floatAnim 8s ease-in-out infinite;
+}
+
+.float-medium {
+    animation: floatAnim 6s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.float-fast {
+    animation: floatAnim 4.5s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+@keyframes floatAnim {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(0.5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* ==========================================================================
+   SEAMLESS PAGE TRANSITION OVERLAY
+   ========================================================================== */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #070A13 0%, #0B0F19 100%);
+    z-index: 9999;
+    pointer-events: all;
+    transform: translateX(0);
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    border-left: 3px solid var(--color-cyan);
+    border-right: 3px solid var(--color-violet);
+}
+
+.transition-overlay.fade-out {
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+.transition-overlay.fade-in {
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+/* ==========================================================================
+   CANVAS BACKDROP
+   ========================================================================== */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.04) 0%, rgba(79, 172, 254, 0.02) 50%, transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: var(--font-subheading);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--gradient-accent);
+    color: #070A13;
+    box-shadow: 0 4px 20px rgba(0, 242, 254, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px var(--color-cyan-glow);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFF;
+}
+
+.btn-secondary:hover {
+    border-color: var(--color-cyan);
+    background: rgba(0, 242, 254, 0.05);
+    transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   BENTO GRID LAYOUT
+   ========================================================================== */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+}
+
+.bento-item {
+    grid-column: span 4;
+}
+
+.bento-item.wide {
+    grid-column: span 8;
+}
+
+.bento-item.tall {
+    grid-row: span 2;
+}
+
+/* ==========================================================================
+   SECTION - WHITE HIGH CONTRAST TRANSITIONS
+   ========================================================================== */
+.section-light {
+    background: var(--color-bg-light);
+    color: var(--color-text-dark);
+    z-index: 10;
+}
+
+.section-light .title-tech {
+    background: linear-gradient(to right, var(--color-text-dark), var(--color-text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-light p {
+    color: var(--color-text-muted);
+}
+
+/* Angle Divider Top and Bottom */
+.divider-angle-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--color-bg-light);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    transform: translateY(-59px);
+    pointer-events: none;
+}
+
+.divider-angle-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--color-bg-light);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    transform: translateY(59px);
+    pointer-events: none;
+    z-index: 11;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+    background: #04060B;
+    border-top: 1px solid var(--glass-border);
+    padding: 60px 5% 40px 5%;
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+.footer-logo span {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 10px 0;
+}
+
+.footer-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-cyan);
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .bento-item {
+        grid-column: span 6;
+    }
+    .bento-item.wide {
+        grid-column: span 12;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 60px 5%;
+    }
+    
+    .nav-links {
+        display: none; /* Will toggle in mobile script */
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(7, 10, 19, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    .bento-item, .bento-item.wide {
+        grid-column: span 12;
+    }
+    
+    .divider-angle-top, .divider-angle-bottom {
+        height: 30px;
+    }
+    .divider-angle-top {
+        transform: translateY(-29px);
+    }
+    .divider-angle-bottom {
+        transform: translateY(29px);
+    }
+}
+
+/* ==========================================================================
+   SCROLL INDICATOR
+   ========================================================================== */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.scroll-indicator:hover {
+    color: var(--color-cyan);
+}
+
+.scroll-mouse {
+    width: 20px;
+    height: 35px;
+    border: 2px solid var(--color-text-secondary);
+    border-radius: 20px;
+    position: relative;
+}
+
+.scroll-indicator:hover .scroll-mouse {
+    border-color: var(--color-cyan);
+}
+
+.scroll-wheel {
+    width: 4px;
+    height: 8px;
+    background-color: var(--color-text-secondary);
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollAnim 1.5s infinite;
+}
+
+.scroll-indicator:hover .scroll-wheel {
+    background-color: var(--color-cyan);
+}
+
+@keyframes scrollAnim {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 12px);
+    }
+}
+
+/* ==========================================================================
+   LIGHT MODE VARIABLE OVERRIDES
+   ========================================================================== */
+body.light-theme {
+    --color-bg-dark: #F8FAFC;
+    --color-bg-space: #F1F5F9;
+    --color-bg-light: #0B0F19; /* Inverts transitions */
+    --color-card-dark: rgba(255, 255, 255, 0.72);
+    
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-dark: #FFFFFF; /* Inverts section header breaks */
+    --color-text-muted: #64748B;
+    
+    --glass-border: rgba(15, 23, 42, 0.08);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
+    
+    background-image: 
+        linear-gradient(rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+}
+
+body.light-theme .glass-card:hover {
+    border-color: rgba(79, 172, 254, 0.5);
+    box-shadow: 0 15px 40px rgba(79, 172, 254, 0.12);
+}
+
+body.light-theme .logo,
+body.light-theme .nav-links a {
+    color: var(--color-text-primary);
+}
+
+body.light-theme .nav-links a:hover,
+body.light-theme .nav-links a.active {
+    color: #4FACFE;
+}
+
+body.light-theme .cta-nav {
+    border-color: #4FACFE;
+    color: #4FACFE;
+}
+
+body.light-theme .cta-nav:hover {
+    background: var(--gradient-accent);
+    color: #FFF;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 10px var(--color-cyan-glow);
+    transform: scale(1.05);
+}
+
+body.light-theme .theme-toggle-btn .icon-sun {
+    display: none;
+}
+body:not(.light-theme) .theme-toggle-btn .icon-moon {
+    display: none;
+}
+
+/* ==========================================================================
+   AI CHATBOT WIDGET
+   ========================================================================== */
+.chatbot-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    font-family: var(--font-body);
+}
+
+.chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    color: #070A13;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 5px 25px rgba(0, 242, 254, 0.4);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    outline: none;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 8px 30px rgba(0, 242, 254, 0.6);
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 360px;
+    height: 480px;
+    border-radius: 16px;
+    background: var(--color-card-dark);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.chatbot-window.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.chat-header {
+    padding: 16px 20px;
+    background: rgba(7, 10, 19, 0.6);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.light-theme .chat-header {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.chat-header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-subheading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #FFF;
+}
+
+body.light-theme .chat-header-title {
+    color: var(--color-text-primary);
+}
+
+.chat-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+}
+
+.chat-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    outline: none;
+}
+
+.chat-close-btn:hover {
+    color: #FFF;
+}
+
+body.light-theme .chat-close-btn:hover {
+    color: var(--color-text-primary);
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-msg {
+    max-width: 80%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    position: relative;
+    word-break: break-word;
+}
+
+.chat-msg.bot {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--color-text-primary);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+body.light-theme .chat-msg.bot {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.chat-msg.user {
+    background: var(--gradient-accent);
+    color: #070A13;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    font-weight: 500;
+}
+
+.chat-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.chat-chip {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: var(--color-cyan);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-subheading);
+    font-weight: 500;
+}
+
+body.light-theme .chat-chip {
+    background: rgba(0, 0, 0, 0.02);
+    color: #4FACFE;
+}
+
+.chat-chip:hover {
+    background: rgba(0, 242, 254, 0.08);
+    border-color: var(--color-cyan);
+    transform: translateY(-1px);
+}
+
+.chat-input-area {
+    display: flex;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(7, 10, 19, 0.4);
+}
+
+body.light-theme .chat-input-area {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 15px 20px;
+    color: #FFF;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+}
+
+body.light-theme .chat-input {
+    color: var(--color-text-primary);
+}
+
+.chat-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.chat-input:focus {
+    outline: none;
+}
+
+.chat-send-btn {
+    background: transparent;
+    border: none;
+    padding: 0 20px;
+    color: var(--color-cyan);
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    outline: none;
+}
+
+.chat-send-btn:hover {
+    color: var(--color-violet);
+}
+
+/* Typing Indicator Animation */
+.typing-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    height: 10px;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-text-secondary);
+    animation: typingDelay 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingDelay {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    45% { transform: scale(1.1); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .chatbot-window {
+        width: 300px;
+        height: 420px;
+    }
+}

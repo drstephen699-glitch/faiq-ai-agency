@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Faiq AI Agency | Bespoke Digital Engineering & Marketing</title>
+    <meta name="description" content="Explore our technical services: high-performance web development, map rankings (GMB), high-retention video editing, SEO scaling, and futuristic graphics.">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CSS Page Specific Adjustments -->
+    <style>
+        .services-hero {
+            padding-top: 150px;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+
+        .services-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .services-hero p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid Layout */
+        .services-list {
+            padding-bottom: 120px;
+        }
+
+        .services-container-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .service-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            border-radius: 20px;
+            height: 100%;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .service-icon {
+            font-size: 2.8rem;
+            line-height: 1;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--color-cyan);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+        }
+
+        .service-panel h2 {
+            font-family: var(--font-subheading);
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            color: #FFF;
+        }
+
+        .service-desc {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .service-features li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+        .service-features li::before {
+            content: "✦";
+            color: var(--color-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* Tech Stack Pills */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 35px;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            color: #FFF;
+            font-family: var(--font-subheading);
+        }
+
+        .service-cta {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-container-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas Backdrop -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Transition Overlay -->
+    <div class="transition-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav" id="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo" id="logo-home">
+                <span>FAIQ</span> AI
+            </a>
+            <div class="nav-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navigation-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                    <button class="theme-toggle-btn" id="theme-toggle-nav" aria-label="Toggle light/dark theme">
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
+                    </button>
+                </li>
+                <li><a href="contact.html" class="cta-nav">Let's Connect</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Services Hero -->
+        <section class="services-hero">
+            <div class="ambient-glow" style="top: 10%; right: 10%;"></div>
+            <div class="container">
+                <h1 class="title-tech">OUR COGNITIVE <span class="gradient-text">CAPABILITIES</span></h1>
+                <p>We blend high-end visual systems with algorithmic intelligence to deliver measurable digital dominance. Browse our specialized offerings below.</p>
+            </div>
+        </section>
+
+        <!-- Services Details Grid -->
+        <section class="services-list" id="services-details">
+            <div class="container">
+                <div class="services-container-grid">
+                    
+                    <!-- 1. Web Dev -->
+                    <div class="glass-card service-panel float-slow" id="web-dev" style="--float-delay: 0s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">⚡</div>
+                                <span class="service-badge">PERFORMANCE</span>
+                            </div>
+                            <h2>Website Design & Development</h2>
+                            <p class="service-desc">We build interactive, ultra-fast interfaces designed to load in milliseconds. Bypassing bloated platforms, we build with highly scalable custom technologies to ensure near-zero latency and high engagement.</p>
+                            <ul class="service-features">
+                                <li>Custom Jamstack & Static React Development</li>
+                                <li>Core Web Vitals & LCP Optimization</li>
+                                <li>Interactive 3D Web & WebGL Layouts</li>
+                                <li>Advanced UI/UX Animation & Parallax Engines</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">React</span>
+                                <span class="tech-pill">Next.js</span>
+                                <span class="tech-pill">Three.js</span>
+                                <span class="tech-pill">GSAP</span>
+                                <span class="tech-pill">Tailwind CSS</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=web-dev" class="btn btn-primary service-cta">Initiate Project</a>
+                    </div>
+
+                    <!-- 2. SEO -->
+                    <div class="glass-card service-panel float-medium" id="seo" style="--float-delay: -1.5s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">📈</div>
+                                <span class="service-badge">SCALING</span>
+                            </div>
+                            <h2>Search Engine Optimization</h2>
+                            <p class="service-desc">Data-backed strategies that boost organic rankings and dominate search grids. We audit technical search metrics, automate schema injection, and implement robust keyword capture frameworks.</p>
+                            <ul class="service-features">
+                                <li>Comprehensive Competitive Keyword Auditing</li>
+                                <li>Semantic Schema & Structured Data Automation</li>
+                                <li>Authority Backlink Acquisition campaigns</li>
+                                <li>Continuous CTR Search Engine Optimization</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Google Analytics 4</span>
+                                <span class="tech-pill">SEMrush</span>
+                                <span class="tech-pill">Ahrefs</span>
+                                <span class="tech-pill">Search Console</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=seo" class="btn btn-secondary service-cta">Boost Rankings</a>
+                    </div>
+
+                    <!-- 3. Graphic Design -->
+                    <div class="glass-card service-panel float-fast" id="graphics" style="--float-delay: -3s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">🎨</div>
+                                <span class="service-badge">ESTHETICS</span>
+                            </div>
+                            <h2>Graphic Design & Branding</h2>
+                            <p class="service-desc">Establish premium visual authority with cutting-edge visual systems. From high-tech minimalist logos to comprehensive digital assets, we design visuals that stand out in crowded feeds.</p>
+                            <ul class="service-features">
+                                <li>Futuristic Corporate Identity Kits</li>
+                                <li>High-impact social media assets</li>
+                                <li>3D Mockup Asset Packs</li>
+                                <li>Premium Vector Illustration & Guidelines</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Adobe Illustrator</span>
+                                <span class="tech-pill">Photoshop</span>
+                                <span class="tech-pill">Figma</span>
+                                <span class="tech-pill">Midjourney Studio</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=graphics" class="btn btn-secondary service-cta">Rebrand Now</a>
+                    </div>
+
+                    <!-- 4. GMB Optimization -->
+                    <div class="glass-card service-panel float-slow" id="gmb" style="--float-delay: -4.5s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">📍</div>
+                                <span class="service-badge">LOCAL</span>
+                            </div>
+                            <h2>Google My Business Optimization</h2>
+                            <p class="service-desc">Dominate local maps. We optimize profiles to rank in the GMB "3-Pack," ensuring high-volume inbound leads from local search queries.</p>
+                            <ul class="service-features">
+                                <li>Local Citation & Geofencing Engineering</li>
+                                <li>Review Flow Automation Systems</li>
+                                <li>Map API integration & Geo-Tagged image posts</li>
+                                <li>Weekly Local Event & Promotion Posting</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Google Maps API</span>
+                                <span class="tech-pill">BrightLocal</span>
+                                <span class="tech-pill">Local Schema</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=gmb" class="btn btn-secondary service-cta">Rank Locally</a>
+                    </div>
+
+                    <!-- 5. Social Media Marketing -->
+                    <div class="glass-card service-panel float-medium" id="social-media" style="--float-delay: -2s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">🚀</div>
+                                <span class="service-badge">TRAFFIC</span>
+                            </div>
+                            <h2>Social Media Marketing</h2>
+                            <p class="service-desc">Growth hacking algorithms to expand reach and convert followers. We build high-engagement funnels across major platforms to drive lead generation.</p>
+                            <ul class="service-features">
+                                <li>Algorithmic Audience Interest Targeting</li>
+                                <li>High-converting Paid Ad campaigns</li>
+                                <li>Creative Copywriting & Asset Posting</li>
+                                <li>Conversion Tracker & Funnel setups</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Meta Ads Manager</span>
+                                <span class="tech-pill">TikTok Pixels</span>
+                                <span class="tech-pill">LinkedIn Ads</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=social-media" class="btn btn-secondary service-cta">Start Growth</a>
+                    </div>
+
+                    <!-- 6. Video Editing -->
+                    <div class="glass-card service-panel float-fast" id="video-editing" style="--float-delay: -3.5s;">
+                        <div class="card-glare"></div>
+                        <div>
+                            <div class="service-header">
+                                <div class="service-icon">🎬</div>
+                                <span class="service-badge">RETENTION</span>
+                            </div>
+                            <h2>Cinematic Video Editing</h2>
+                            <p class="service-desc">Produce high-retention short and long-form video content. We utilize high-impact sound design, kinetic typography, and motion assets to maximize average watch time.</p>
+                            <ul class="service-features">
+                                <li>Viral Shorts, Reels, & TikTok retention cuts</li>
+                                <li>Custom Soundscape & SFX Design</li>
+                                <li>Advanced Motion Tracking & VFX overlays</li>
+                                <li>Color Grading & Cinematic Master setups</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Premiere Pro</span>
+                                <span class="tech-pill">After Effects</span>
+                                <span class="tech-pill">DaVinci Resolve</span>
+                            </div>
+                        </div>
+                        <a href="contact.html?service=video" class="btn btn-primary service-cta">Order Video Edit</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo" id="footer-logo-link">
+                <span>FAIQ</span> AI
+            </a>
+            <ul class="footer-links" id="footer-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <p style="max-width: 500px; font-size: 0.9rem; margin-top: 10px;">Faiq AI Agency © 2026. Custom design engineered for maximum digital conversion. All rights reserved.</p>
+        </div>
+        <div class="footer-bottom">
+            Designed and Developed by Faiq AI Agency.
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Widget -->
+    <div class="chatbot-container" id="chatbot">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open AI chatbot">
+            <span>💬</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chat-header">
+                <div class="chat-header-title">
+                    <div class="chat-status-dot"></div>
+                    <span>Faiq AI Core Assistant</span>
+                </div>
+                <button class="chat-close-btn" id="chat-close" aria-label="Close chatbot">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot">
+                    Hello! I am Faiq AI Core. How can I propel your brand's digital authority today?
+                </div>
+            </div>
+            <div class="chat-chips">
+                <button class="chat-chip" id="chip-services">Capabilities</button>
+                <button class="chat-chip" id="chip-audit">Free Audit</button>
+                <button class="chat-chip" id="chip-call">Book Call</button>
+            </div>
+            <form class="chat-input-area" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message..." aria-label="Type message to AI Core">
+                <button type="submit" class="chat-send-btn" id="chat-send" aria-label="Send message">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

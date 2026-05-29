@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Faiq AI Agency | Interactive Proof of Digital Dominance</title>
+    <meta name="description" content="Browse past projects by Faiq AI Agency. Futuristic web app development, neon brand identities, cinematic video edits, and SEO growth campaign case studies.">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CSS Page Specific Adjustments -->
+    <style>
+        .portfolio-hero {
+            padding-top: 150px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .portfolio-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-hero p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--color-text-secondary);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: var(--font-subheading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .filter-tab:hover {
+            color: #FFF;
+            border-color: rgba(0, 242, 254, 0.4);
+            background: rgba(0, 242, 254, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: var(--gradient-accent);
+            color: var(--color-bg-dark);
+            border-color: transparent;
+            box-shadow: 0 5px 15px var(--color-cyan-glow);
+        }
+
+        /* Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            padding-bottom: 120px;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .portfolio-grid.filtering {
+            opacity: 0.05;
+            transform: scale(0.98);
+        }
+
+        .portfolio-card {
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+
+        .portfolio-card.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .portfolio-card.visible {
+            display: flex;
+            animation: showCard 0.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes showCard {
+            from {
+                opacity: 0;
+                transform: scale(0.85) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .portfolio-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .portfolio-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .portfolio-image-wrapper img {
+            transform: scale(1.06);
+        }
+
+        .portfolio-card-info {
+            padding: 30px;
+        }
+
+        .portfolio-card-category {
+            font-family: var(--font-heading);
+            color: var(--color-cyan);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-card-title {
+            font-family: var(--font-subheading);
+            font-size: 1.4rem;
+            color: #FFF;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-card-desc {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Lightbox Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 10, 19, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-wrapper {
+            background: var(--color-card-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(40px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px var(--color-cyan-glow);
+        }
+
+        .modal-overlay.active .modal-wrapper {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: #FFF;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gradient-accent);
+            color: var(--color-bg-dark);
+            border-color: transparent;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+
+        .modal-content {
+            padding: 40px;
+        }
+
+        .modal-category {
+            font-family: var(--font-heading);
+            color: var(--color-cyan);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-family: var(--font-subheading);
+            font-size: 2rem;
+            color: #FFF;
+            margin-bottom: 20px;
+        }
+
+        .modal-body {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .modal-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        .modal-meta-item h5 {
+            font-family: var(--font-heading);
+            color: #FFF;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .modal-meta-item p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .modal-image {
+                height: 220px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+
+            .modal-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas Backdrop -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Transition Overlay -->
+    <div class="transition-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav" id="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo" id="logo-home">
+                <span>FAIQ</span> AI
+            </a>
+            <div class="nav-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navigation-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                    <button class="theme-toggle-btn" id="theme-toggle-nav" aria-label="Toggle light/dark theme">
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
+                    </button>
+                </li>
+                <li><a href="contact.html" class="cta-nav">Let's Connect</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Portfolio Hero -->
+        <section class="portfolio-hero">
+            <div class="ambient-glow" style="top: 5%; left: 10%;"></div>
+            <div class="container">
+                <h1 class="title-tech">PROOF OF <span class="gradient-text">DOMINANCE</span></h1>
+                <p>A curated compilation of custom web projects, digital branding, dynamic video edits, and SEO growth case studies designed for maximum conversion.</p>
+            </div>
+        </section>
+
+        <!-- Dynamic Gallery Section -->
+        <section id="portfolio-gallery" style="padding-top: 20px;">
+            <div class="container">
+                
+                <!-- Filter Tabs -->
+                <div class="filter-tabs-container">
+                    <button class="filter-tab active" data-filter="all" id="filter-all">ALL PROJECTS</button>
+                    <button class="filter-tab" data-filter="web-dev" id="filter-web">WEB DEV</button>
+                    <button class="filter-tab" data-filter="graphics" id="filter-graphics">GRAPHICS</button>
+                    <button class="filter-tab" data-filter="video" id="filter-video">VIDEO</button>
+                    <button class="filter-tab" data-filter="case-studies" id="filter-cases">CASE STUDIES</button>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="portfolio-grid" id="grid-container">
+                    
+                    <!-- Card 1 (Web Dev) -->
+                    <div class="glass-card portfolio-card float-slow" data-category="web-dev" style="--float-delay: 0s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/web_dev_showcase.png" alt="DeFi Trading Platform Preview - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">WEB DESIGN & DEV</div>
+                            <h3 class="portfolio-card-title">Horizon DeFi Trading Platform</h3>
+                            <p class="portfolio-card-desc">An immersive, zero-latency trading portal featuring real-time WebGL chart rendering and a custom glassmorphism design system.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 (Case Studies) -->
+                    <div class="glass-card portfolio-card float-medium" data-category="case-studies" style="--float-delay: -1.5s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/seo_showcase.png" alt="SaaS SEO Authority Campaign Data - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">SEO CASE STUDY</div>
+                            <h3 class="portfolio-card-title">Nova SaaS SEO Scaling Campaign</h3>
+                            <p class="portfolio-card-desc">How we generated a 10x boost in organic inbound leads within 90 days for a collaborative enterprise software product.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 (Graphics) -->
+                    <div class="glass-card portfolio-card float-fast" data-category="graphics" style="--float-delay: -3s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/branding_showcase.png" alt="Aether Corporate Rebranding Package - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">GRAPHIC DESIGN & BRANDING</div>
+                            <h3 class="portfolio-card-title">Aether Rebranding Identity Kit</h3>
+                            <p class="portfolio-card-desc">A premium neon-themed, minimalist corporate rebrand package, featuring futuristic logos, guidelines, and 3D card mockups.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 (Video) -->
+                    <div class="glass-card portfolio-card float-slow" data-category="video" style="--float-delay: -4.5s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/video_showcase.png" alt="Cinematic Motion Editing Software - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">CINEMATIC VIDEO EDITING</div>
+                            <h3 class="portfolio-card-title">Chronos Kinetic Social Reel</h3>
+                            <p class="portfolio-card-desc">A high-impact cinematic promotional reel with custom frame pacing, sound design overlays, and kinetic text animations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 (Web Dev) -->
+                    <div class="glass-card portfolio-card float-medium" data-category="web-dev" style="--float-delay: -2s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/web_dev_showcase.png" alt="Solaris SaaS UI Showcase - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">WEB DESIGN & DEV</div>
+                            <h3 class="portfolio-card-title">Solaris SaaS App Layout</h3>
+                            <p class="portfolio-card-desc">A high-conversion dashboard for a next-gen solar metrics SaaS client, built for rapid loading speeds and responsiveness.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 (Case Studies) -->
+                    <div class="glass-card portfolio-card float-fast" data-category="case-studies" style="--float-delay: -3.5s;">
+                        <div class="card-glare"></div>
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/seo_showcase.png" alt="GMB Map Pack Rankings Results - Faiq AI Agency">
+                        </div>
+                        <div class="portfolio-card-info">
+                            <div class="portfolio-card-category">SEO / GMB CASE STUDY</div>
+                            <h3 class="portfolio-card-title">Vortex GMB Local maps Domination</h3>
+                            <p class="portfolio-card-desc">Detailed walkthrough of how our local maps citation and review automation system pushed an HVAC service into the local 3-pack.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Lightbox Modal -->
+    <div class="modal-overlay" id="lightbox-modal">
+        <div class="modal-wrapper">
+            <button class="modal-close" id="close-modal" aria-label="Close project modal">&times;</button>
+            <img src="" alt="Showcase Expanded View" class="modal-image" id="modal-img">
+            <div class="modal-content">
+                <div class="modal-category" id="modal-cat">CATEGORY</div>
+                <h2 class="modal-title" id="modal-title">Project Title</h2>
+                <div class="modal-body" id="modal-body">
+                    Detailed case study or description will be shown here. Custom animation and typography structures are present to explain client milestones and results.
+                </div>
+                <div class="modal-meta-grid">
+                    <div class="modal-meta-item">
+                        <h5>CLIENT</h5>
+                        <p id="modal-client">Horizon Tech Ltd</p>
+                    </div>
+                    <div class="modal-meta-item">
+                        <h5>TIMELINE</h5>
+                        <p id="modal-timeline">4 Weeks</p>
+                    </div>
+                    <div class="modal-meta-item">
+                        <h5>TECH USED</h5>
+                        <p id="modal-tech">React, Three.js, Canvas</p>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn btn-primary" style="width: 100%;">Order Similar Project</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo" id="footer-logo-link">
+                <span>FAIQ</span> AI
+            </a>
+            <ul class="footer-links" id="footer-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <p style="max-width: 500px; font-size: 0.9rem; margin-top: 10px;">Faiq AI Agency © 2026. Custom design engineered for maximum digital conversion. All rights reserved.</p>
+        </div>
+        <div class="footer-bottom">
+            Designed and Developed by Faiq AI Agency.
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Widget -->
+    <div class="chatbot-container" id="chatbot">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open AI chatbot">
+            <span>💬</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chat-header">
+                <div class="chat-header-title">
+                    <div class="chat-status-dot"></div>
+                    <span>Faiq AI Core Assistant</span>
+                </div>
+                <button class="chat-close-btn" id="chat-close" aria-label="Close chatbot">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot">
+                    Hello! I am Faiq AI Core. How can I propel your brand's digital authority today?
+                </div>
+            </div>
+            <div class="chat-chips">
+                <button class="chat-chip" id="chip-services">Capabilities</button>
+                <button class="chat-chip" id="chip-audit">Free Audit</button>
+                <button class="chat-chip" id="chip-call">Book Call</button>
+            </div>
+            <form class="chat-input-area" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message..." aria-label="Type message to AI Core">
+                <button type="submit" class="chat-send-btn" id="chat-send" aria-label="Send message">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Inline Page Specific JavaScript for Filters & Lightbox -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPortfolioFilter();
+            initPortfolioLightbox();
+        });
+
+        /* Portfolio Category Filters */
+        function initPortfolioFilter() {
+            const tabs = document.querySelectorAll('.filter-tab');
+            const cards = document.querySelectorAll('.portfolio-card');
+            const grid = document.getElementById('grid-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    if (tab.classList.contains('active')) return;
+
+                    // Update active tab styling
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const filterValue = tab.getAttribute('data-filter');
+
+                    // Fade out the grid smoothly
+                    if (grid) grid.classList.add('filtering');
+
+                    setTimeout(() => {
+                        // Filter cards
+                        cards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            if (filterValue === 'all' || cardCategory === filterValue) {
+                                card.classList.remove('hidden');
+                                card.classList.add('visible');
+                            } else {
+                                card.classList.add('hidden');
+                                card.classList.remove('visible');
+                            }
+                        });
+
+                        // Fade the grid back in
+                        if (grid) grid.classList.remove('filtering');
+                    }, 350);
+                });
+            });
+        }
+
+        /* Lightbox Modal Controls */
+        function initPortfolioLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalCat = document.getElementById('modal-cat');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            const modalClient = document.getElementById('modal-client');
+            const modalTimeline = document.getElementById('modal-timeline');
+            const modalTech = document.getElementById('modal-tech');
+            
+            const closeBtn = document.getElementById('close-modal');
+            const cards = document.querySelectorAll('.portfolio-card');
+
+            // Metadata mapping for expansion
+            const projectMetadata = {
+                "Horizon DeFi Trading Platform": {
+                    client: "Horizon DeFi Inc.",
+                    timeline: "6 Weeks",
+                    tech: "React, WebGL, Canvas API, CSS-Grid",
+                    body: "We built an immersive portal for decentralized trading. Bypassing standard bulky analytics engines, we rendered real-time order sheets and market depths directly onto an interactive canvas backdrop. The design system features glassmorphism with dynamic glowing node points, resulting in a 35% increase in session duration."
+                },
+                "Nova SaaS SEO Scaling Campaign": {
+                    client: "Nova Corp.",
+                    timeline: "90 Days",
+                    tech: "Schema Markup, SEMrush, Technical Audits",
+                    body: "By restructuring Nova's technical layout and building automated schema injectors for their blog pages, we eliminated load blocking and optimized search parsing. Organic search clicks grew by 240% and total pipeline acquisitions rose by 10x within three months."
+                },
+                "Aether Rebranding Identity Kit": {
+                    client: "Aether Dynamics",
+                    timeline: "3 Weeks",
+                    tech: "Illustrator, Figma, Cinema4D Mockups",
+                    body: "A complete visual identity overhaul for Aether. We developed a neon-themed brand style guide, modular asset grids, a vector-based scalable geometric logo, and physical stationary layouts modeled in 3D. The cohesive style instantly repositioned the brand to secure seed-stage investments."
+                },
+                "Chronos Kinetic Social Reel": {
+                    client: "Chronos Watch Co.",
+                    timeline: "2 Weeks",
+                    tech: "Premiere, After Effects, DaVinci Audio",
+                    body: "A high-impact 30-second promotional cut designed for social platforms. We optimized retention rates by pacing edits with visual sync locks, implementing custom SFX rises, and overlaying kinetic subtitle blocks. Watch-through rates rose to 67% on TikTok."
+                },
+                "Solaris SaaS App Layout": {
+                    client: "Solaris Power Solutions",
+                    timeline: "4 Weeks",
+                    tech: "HTML5, Vanilla CSS, JS Modules",
+                    body: "A custom responsive layout created for solar energy analytics. It features micro-animations and clean metric dashboards that load instantly under slow connections, ensuring field engineers can access panels securely."
+                },
+                "Vortex GMB Local maps Domination": {
+                    client: "Vortex HVAC Services",
+                    timeline: "8 Weeks",
+                    tech: "Maps API, BrightLocal, Schema, Citation Indexing",
+                    body: "An optimization campaign targeting HVAC search keywords. By geofencing citation nodes and linking GMB posting flows with review automation webhooks, Vortex secured the #1 position in the Google Maps local 3-pack, scaling phone inquiries by 180%."
+                }
+            };
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const titleText = card.querySelector('.portfolio-card-title').textContent;
+                    const catText = card.querySelector('.portfolio-card-category').textContent;
+                    const imgUrl = card.querySelector('img').getAttribute('src');
+                    const meta = projectMetadata[titleText];
+
+                    if (meta) {
+                        modalImg.setAttribute('src', imgUrl);
+                        modalCat.textContent = catText;
+                        modalTitle.textContent = titleText;
+                        modalBody.textContent = meta.body;
+                        modalClient.textContent = meta.client;
+                        modalTimeline.textContent = meta.timeline;
+                        modalTech.textContent = meta.tech;
+
+                        // Open Modal
+                        modal.classList.add('active');
+                    }
+                });
+            });
+
+            // Close Modal Events
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
